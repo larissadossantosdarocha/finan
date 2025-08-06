@@ -38,31 +38,26 @@ export default function Index() {
 
   function calcularFinanciamento() {
     if (valorBem && parcelas && taxaJuros) {
-      // Convertendo entradas para números
-      const C = parseFloat(valorBem);  // Valor do bem
-      const t = parseInt(parcelas);  // Número de parcelas
-      const i = parseFloat(taxaJuros) / 100;  // Taxa de juros mensal em decimal
-      const taxas = parseFloat(taxasAdicionais) || 0;  // Taxas adicionais (se houver)
 
-      // Verificar se a taxa de juros não é zero
+      const C = parseFloat(valorBem);  
+      const t = parseInt(parcelas); 
+      const i = parseFloat(taxaJuros) / 100;
+      const taxas = parseFloat(taxasAdicionais) || 0; 
+
       if (i === 0) {
         setResultado("A taxa de juros não pode ser zero.");
         return;
       }
 
-      // Fórmula de juros compostos para calcular o montante total M
       const M = C * Math.pow(1 + i, t) + taxas;
 
-      // Cálculo da parcela
       const p = M / t;
 
-      // Verificar se o valor da parcela é um número válido
       if (isNaN(p) || !isFinite(p)) {
         setResultado("Erro nos cálculos. Verifique os valores inseridos.");
         return;
       }
 
-      // Alterando os nomes para exibir os resultados conforme solicitado
       setResultado(
         `Valor Total a Ser Pago: R$ ${M.toFixed(2)}\nValor da Parcela: R$ ${p.toFixed(2)}`
       );
@@ -110,7 +105,6 @@ export default function Index() {
         onPress={calcularFinanciamento}
       />
 
-      {/* Exibição do resultado sem o nome "Resultado" */}
       <Text style={styles.text}>{resultado}</Text>
     </View>
   );
